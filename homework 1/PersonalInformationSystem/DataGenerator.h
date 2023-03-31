@@ -1,5 +1,6 @@
 #pragma once
 #ifndef DATAGENERATOR_H
+#define DATAGENERATOR_H
 
 #include<vector>
 #include<array>

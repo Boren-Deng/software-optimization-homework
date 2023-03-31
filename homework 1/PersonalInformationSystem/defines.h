@@ -1,5 +1,6 @@
 #pragma once
 #ifndef DEFINES_H
+#define DEFINES_H
 #include<iostream>
 struct person
 {

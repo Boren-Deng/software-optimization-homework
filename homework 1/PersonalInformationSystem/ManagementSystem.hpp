@@ -1,5 +1,7 @@
 #pragma once
-#ifndef MANAGEMENTSYSTEM_H
+#ifndef MANAGEMENTSYSTEM_HPP
+#define MANAGEMENTSYSTEM_HPP
+
 #include<map>
 template<typename K,typename V>
 class ManagementSystem
@@ -35,5 +37,5 @@ private:
 	std::map<K, V>idNumberToInformation;
 };
 
-#endif // !MANAGEMENTSYSTEM_H
+#endif // !MANAGEMENTSYSTEM_HPP
 

@@ -1,5 +1,6 @@
 #pragma once
 #ifndef BENCHMARKEXECUTOR_H
+#define BENCHMARKEXECUTOR_H
 #include "Logger.h"
 #include "DataGenerator.h"
 #include "defines.h"
