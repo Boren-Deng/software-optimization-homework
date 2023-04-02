@@ -10,7 +10,7 @@ using namespace std;
 Executor::Executor(unsigned long N)
 	:N(N)
 {
-	h = HALF_PI / 2 / N;
+	h = HALF_PI  / N;
 }
 
 void Executor::execute()
@@ -24,7 +24,7 @@ void Executor::execute()
 	result=commonScheme();
 	log(Logger::end, "common scheme");
 	ss << result;
-	log("common scheme result" + ss.str());
+	log("common scheme result: " + ss.str());
 	ss.str("");
 	ss.clear();
 
@@ -41,8 +41,8 @@ double Executor::commonScheme()
 	double result = 0.0;
 	for (size_t k = 0; k < N; k++)
 	{
-		double kh = k * h,kh_2=k*h*k*h;
-		result += (1.0 - (1.0 / FACTORIAL_3 + (1.0 / FACTORIAL_5 - kh_2 / FACTORIAL_7) * kh_2) * kh_2) * kh * h;
+		double kh = k * h,kh_2=kh*kh;
+		result += (1.0 - ( FACTORIAL_3 + ( FACTORIAL_5 - kh_2 * FACTORIAL_7) * kh_2) * kh_2) * kh * h;
 	}
 	return result;
 }
@@ -53,19 +53,19 @@ double Executor::loopUnrollScheme()
 	unsigned long n=N-N%4;
 	for (size_t k = 0; k < n; k+=4)
 	{
-		double kh = k * h, kh_2 = k * h * k * h,
-			k1h = (k + 1) * h, k1h_2 = (k + 1) * h * (k + 1) * h,
-			k2h = (k + 2) * h, k2h_2 = (k + 2) * h * (k + 2) * h,
-			k3h = (k + 3) * h, k3h_2 = (k + 3) * h * (k + 3) * h;
-		result += (1.0 - (1.0 / FACTORIAL_3 + (1.0 / FACTORIAL_5 - kh_2 / FACTORIAL_7) * kh_2) * kh_2) * kh * h+
-			(1.0 - (1.0 / FACTORIAL_3 + (1.0 / FACTORIAL_5 - k1h_2 / FACTORIAL_7) * k1h_2) * k1h_2) * k1h * h+
-			(1.0 - (1.0 / FACTORIAL_3 + (1.0 / FACTORIAL_5 - k2h_2 / FACTORIAL_7) * k2h_2) * k2h_2) * k2h * h+
-			(1.0 - (1.0 / FACTORIAL_3 + (1.0 / FACTORIAL_5 - k3h_2 / FACTORIAL_7) * k3h_2) * k3h_2) * k3h * h;
+		double kh = k * h, kh_2 = kh*kh,
+			k1h = (k + 1) * h, k1h_2 = k1h*k1h,
+			k2h = (k + 2) * h, k2h_2 = k2h*k2h,
+			k3h = (k + 3) * h, k3h_2 = k3h*k3h;
+		result += (1.0 - ( FACTORIAL_3 + ( FACTORIAL_5 - kh_2 * FACTORIAL_7) * kh_2) * kh_2) * kh * h+
+			(1.0 - ( FACTORIAL_3 + ( FACTORIAL_5 - k1h_2 * FACTORIAL_7) * k1h_2) * k1h_2) * k1h * h+
+			(1.0 - ( FACTORIAL_3 + ( FACTORIAL_5 - k2h_2 * FACTORIAL_7) * k2h_2) * k2h_2) * k2h * h+
+			(1.0 - ( FACTORIAL_3 + ( FACTORIAL_5 - k3h_2 * FACTORIAL_7) * k3h_2) * k3h_2) * k3h * h;
 	}
 	for (size_t k = n; k < N; k++)
 	{
-		double kh = k * h, kh_2 = k * h * k * h;
-		result += (1 - (1 / FACTORIAL_3 + (1 / FACTORIAL_5 - kh_2 / FACTORIAL_7) * kh_2) * kh_2) * kh * h;
+		double kh = k * h, kh_2 = kh*kh;
+		result += (1.0 - ( FACTORIAL_3 + ( FACTORIAL_5 - kh_2 * FACTORIAL_7) * kh_2) * kh_2) * kh * h;
 	}
 	return result;
 }
