@@ -4,7 +4,7 @@
 #include<fstream>
 using namespace std;
 
-const string Logger::LOG_PATH = "mapComsumption.log";
+const string Logger::LOG_PATH = "mapConsumption.log";
 
 
 void Logger::operator()( logOption option, const string& item)
@@ -15,7 +15,7 @@ void Logger::operator()( logOption option, const string& item)
 	{
 		endTime = chrono::time_point_cast<chrono::milliseconds>(chrono::system_clock::now()).time_since_epoch().count();
 		fstream fs(LOG_PATH, ios::app);
-		fs << item + " cumsumption:" << endTime - startTime << "ms\n";
+		fs << item + " consumption:" << endTime - startTime << "ms\n";
 		fs.close();
 	}
 }
