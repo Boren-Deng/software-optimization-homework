@@ -15,7 +15,7 @@ Executor::Executor(const vector<float>& data)
     fill(salaryToTaxCal.begin() + 25, salaryToTaxCal.begin() + 78, &cal9000_35500);
     fill(salaryToTaxCal.begin() + 78, salaryToTaxCal.begin() + 117, &cal35500_55000);
     fill(salaryToTaxCal.begin() + 117, salaryToTaxCal.begin() + 167, &cal55000_80000);
-    fill(salaryToTaxCal.begin() + 167, salaryToTaxCal.end(), &calLargeThan80000);
+    fill(salaryToTaxCal.begin() + 167, salaryToTaxCal.end(), &calLGreaterThan80000);
 }
 
 
@@ -33,7 +33,7 @@ void Executor::execute()
 
 }
 
-#pragma optimize("", off) 
+#pragma optimize("", off) //禁用此函数优化
 void Executor::commonScheme()
 {
 	for (auto each : salary)
@@ -54,7 +54,7 @@ void Executor::commonScheme()
 		else if (greater(taxableSalary, 55000.0f) && lessEqual(taxableSalary, 80000.0f))
 			 cal55000_80000(taxableSalary);
 		else if (greater(taxableSalary, 80000.0f))
-			 calLargeThan80000(taxableSalary);
+			 calLGreaterThan80000(taxableSalary);
 	}
 }
 #pragma optimize("", on) 
@@ -102,7 +102,7 @@ float Executor::cal55000_80000(float s)
 	return s * 0.35f - 5505.0f;
 }
 
-float Executor::calLargeThan80000(float s)
+float Executor::calLGreaterThan80000(float s)
 {
 	return s * 0.45f - 13505.0f;
 }

@@ -1,4 +1,4 @@
-common scheme cumsumption:1665ms
+common scheme consumption:1665ms
 common scheme result: 0.9600868212732122
-loop unroll scheme cumsumption:1519ms
+loop unroll scheme consumption:1519ms
 loop unroll scheme result: 0.9600868212738587

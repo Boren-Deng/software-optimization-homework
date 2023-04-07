@@ -13,7 +13,7 @@ public:
 	void execute();
 private:
 	const std::vector<float>& salary;
-	std::vector<auto(*)(float)->float>salaryToTaxCal;
+	std::vector<auto(*)(float)->float>salaryToTaxCal;//工资区间到税运算函数的映射
 	constexpr static float EPSINON = 1e-8f;
 	void commonScheme();
 	void branchEliminateScheme();
@@ -25,7 +25,7 @@ private:
 	static float cal9000_35500(float s);
 	static float cal35500_55000(float s);
 	static float cal55000_80000(float s);
-	static float calLargeThan80000(float s);
+	static float calLGreaterThan80000(float s);
 
 	inline bool greater(float a, float b)const;
 	inline bool greaterEqual(float a, float b)const;
