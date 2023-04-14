@@ -5,7 +5,7 @@
 #include<fstream>
 using namespace std;
 
-const string Logger::LOG_PATH = "BranchEliminationConsumption.log";
+const string Logger::LOG_PATH = "MatrixPartitionConsumption.log";
 
 
 void Logger::operator()(logOption option, const string& item)
