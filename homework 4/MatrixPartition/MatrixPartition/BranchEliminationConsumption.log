@@ -1,0 +1,48 @@
+common scheme matrix 512*512 multi consumption:329ms
+common scheme matrix 1024*1024 multi consumption:2737ms
+common scheme matrix 2048*2048 multi consumption:22028ms
+common scheme matrix 4096*4096 multi consumption:180773ms
+check sum of result matrix 512*512:-7527904768.000000
+check sum of result matrix 1024*1024:-11581617152.000000
+check sum of result matrix 2048*2048:-1006417216.000000
+check sum of result matrix 4096*4096:-83090374656.000000
+8*8 partition scheme matrix 512 * 512 multi consumption:75ms
+8*8 partition scheme matrix 1024*1024 multi consumption:571ms
+8*8 partition scheme matrix 2048*2048 multi consumption:4795ms
+8*8 partition scheme matrix 4096*4096 multi consumption:49465ms
+check sum of result matrix 512*512:-7527904768.000000
+check sum of result matrix 1024*1024:-11581617152.000000
+check sum of result matrix 2048*2048:-1006417216.000000
+check sum of result matrix 4096*4096:-83090374656.000000
+16*16 partition scheme matrix 512 * 512 multi consumption:81ms
+16*16 partition scheme matrix 1024*1024 multi consumption:644ms
+16*16 partition scheme matrix 2048*2048 multi consumption:5274ms
+16*16 partition scheme matrix 4096*4096 multi consumption:43748ms
+check sum of result matrix 512*512:-7527904768.000000
+check sum of result matrix 1024*1024:-11581617152.000000
+check sum of result matrix 2048*2048:-1006417216.000000
+check sum of result matrix 4096*4096:-83090374656.000000
+32*32 partition scheme matrix 512 * 512 multi consumption:97ms
+32*32 partition scheme matrix 1024*1024 multi consumption:773ms
+32*32 partition scheme matrix 2048*2048 multi consumption:6164ms
+32*32 partition scheme matrix 4096*4096 multi consumption:49461ms
+check sum of result matrix 512*512:-7527904768.000000
+check sum of result matrix 1024*1024:-11581617152.000000
+check sum of result matrix 2048*2048:-1006417216.000000
+check sum of result matrix 4096*4096:-83090374656.000000
+64*64 partition scheme matrix 512 * 512 multi consumption:124ms
+64*64 partition scheme matrix 1024*1024 multi consumption:997ms
+64*64 partition scheme matrix 2048*2048 multi consumption:7929ms
+64*64 partition scheme matrix 4096*4096 multi consumption:63949ms
+check sum of result matrix 512*512:-7527904768.000000
+check sum of result matrix 1024*1024:-11581617152.000000
+check sum of result matrix 2048*2048:-1006417216.000000
+check sum of result matrix 4096*4096:-83090374656.000000
+128*128 partition scheme matrix 512 * 512 multi consumption:135ms
+128*128 partition scheme matrix 1024*1024 multi consumption:1092ms
+128*128 partition scheme matrix 2048*2048 multi consumption:8752ms
+128*128 partition scheme matrix 4096*4096 multi consumption:69673ms
+check sum of result matrix 512*512:-7527904768.000000
+check sum of result matrix 1024*1024:-11581617152.000000
+check sum of result matrix 2048*2048:-1006417216.000000
+check sum of result matrix 4096*4096:-83090374656.000000
