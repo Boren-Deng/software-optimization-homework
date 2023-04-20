@@ -5,6 +5,8 @@
 #include <sstream>
 #include <iomanip>
 #include <immintrin.h>
+#include <emmintrin.h>
+
 using namespace std;
 
 Executor::Executor(unsigned long N)
@@ -45,6 +47,7 @@ void Executor::execute()
 	log("loop unroll and SIMD scheme result: " + ss.str());
 }
 
+#pragma optimize("", off)
 double Executor::commonScheme()
 {
 	double result = 0.0;
@@ -55,6 +58,7 @@ double Executor::commonScheme()
 	}
 	return result;
 }
+#pragma optimize("", on)
 
 double Executor::loopUnrollScheme()
 {
@@ -83,27 +87,28 @@ double Executor::loopUnroolAndSimdScheme()
 {
 	double result = 0.0;
 	unsigned long n = N - N % 4;
-	double kh_arr[4], kh_2_arr[4],result_arr[4];
+	double kh_arr[4], result_arr[4];
+	__m256d resultReg=_mm256_set1_pd(0.0);
 	for (size_t k = 0; k < n; k += 4)
 	{
-		kh_arr[0] = k * h, kh_2_arr[0] = kh_arr[0] * kh_arr[0],
-		kh_arr[1] = (k + 1) * h, kh_2_arr[1] = kh_arr[1] * kh_arr[1],
-		kh_arr[2] = (k + 2) * h, kh_2_arr[2] = kh_arr[2] * kh_arr[2],
-		kh_arr[3] = (k + 3) * h, kh_2_arr[3] = kh_arr[3] * kh_arr[3];
+		kh_arr[0] = k * h,
+			kh_arr[1] = (k + 1) * h,
+			kh_arr[2] = (k + 2) * h,
+			kh_arr[3] = (k + 3) * h;
 
 		__m256d h_ = _mm256_set1_pd(h);
 		__m256d kh = _mm256_load_pd(kh_arr);
-		__m256d kh_2 = _mm256_load_pd(kh_2_arr);
+		__m256d kh_2 = _mm256_mul_pd(kh, kh);
 		__m256d fac_1 = _mm256_set1_pd(1.0);
 		__m256d fac_3 = _mm256_set1_pd(FACTORIAL_3);
 		__m256d fac_5 = _mm256_set1_pd(FACTORIAL_5);
 		__m256d fac_7 = _mm256_set1_pd(FACTORIAL_7);
 
-		__m256d currentResult = _mm256_mul_pd(_mm256_mul_pd(_mm256_fmadd_pd(kh_2, _mm256_fmadd_pd(kh_2, _mm256_fmadd_pd(kh_2, fac_7, fac_5), fac_3), fac_1), kh), h_);
-		_mm256_store_pd(result_arr, currentResult);
-		result += result_arr[0] + result_arr[1] + result_arr[2] + result_arr[3];
-
+		resultReg = _mm256_add_pd(resultReg, _mm256_mul_pd(_mm256_mul_pd(_mm256_fmadd_pd(kh_2, _mm256_fmadd_pd(kh_2, _mm256_fmadd_pd(kh_2, fac_7, fac_5), fac_3), fac_1), kh), h_));
 	}
+	_mm256_store_pd(result_arr, resultReg);
+	result += result_arr[0] + result_arr[1] + result_arr[2] + result_arr[3];
+
 	for (size_t k = n; k < N; k++)
 	{
 		double kh = k * h, kh_2 = kh * kh;

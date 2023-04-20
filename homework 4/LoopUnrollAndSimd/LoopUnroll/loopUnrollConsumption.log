@@ -1,6 +1,6 @@
-common scheme consumption:1100ms
+common scheme consumption:2921ms
 common scheme result: 0.9999752619356307
-loop unroll scheme consumption:1036ms
+loop unroll scheme consumption:1057ms
 loop unroll scheme result: 0.9999752619385626
-loop unroll and SIMD scheme consumption:3313ms
-loop unroll and SIMD scheme result: 0.9999752619385626
+loop unroll and SIMD scheme consumption:2493ms
+loop unroll and SIMD scheme result: 0.9999752619387037
