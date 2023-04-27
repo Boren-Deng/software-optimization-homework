@@ -1,5 +1,7 @@
 ﻿#include "Executor.h"
 #include "Logger.h"
+#include <emmintrin.h>
+
 using namespace std;
 
 Executor::Executor(const DataGenerator& dg)
@@ -225,14 +227,43 @@ void Executor::matrixMulti(const std::vector<std::vector<float>>& inputMatrixA,
                            const std::vector<std::vector<float>>& inputMatrixB,
                            std::vector<std::vector<float>>& resultMatrix, const PartitionInfo& info)
 {
+#define ENABLE_SIMD
+#ifdef ENABLE_SIMD
+	__m128 currentRow, currentCol;
+	__declspec(align(16)) float row_arr[4], col_arr[4],result_arr[4];
+	for (size_t i = info.aStartRow; i <= info.aEndRow; i++)
+	{
+		for (size_t j = info.bStartCol; j <= info.bEndCol; j++)
+		{
+			__m128 tempResult = _mm256_set1_pd(0.0);
+			for (size_t k = 0; k < info.aColNum; k+=4)
+			{
+				row_arr[0] = inputMatrixA[i][info.aStartCol + k + 0],
+					row_arr[1] = inputMatrixA[i][info.aStartCol + k + 1],
+					row_arr[2] = inputMatrixA[i][info.aStartCol + k + 2],
+					row_arr[3] = inputMatrixA[i][info.aStartCol + k + 3];
+				col_arr[0] = inputMatrixB[info.bStartRow + k + 0][j],
+					col_arr[1] = inputMatrixB[info.bStartRow + k + 1][j],
+					col_arr[2] = inputMatrixB[info.bStartRow + k + 2][j],
+					col_arr[3] = inputMatrixB[info.bStartRow + k + 3][j];
+				currentRow=_mm_load_ps(row_arr);
+				currentCol =_mm_load_ps(col_arr);
+				tempResult= _mm_add_ps(tempResult,_mm_mul_ps(currentRow, currentCol));
+			}
+			_mm_store1_ps(result_arr, tempResult);
+			resultMatrix[i][j] = result_arr[0] + result_arr[1] + result_arr[2] + result_arr[3];
+		}
+	}
+#else
 	for (size_t i = info.aStartRow; i <= info.aEndRow; i++)
 	{
 		for (size_t j = info.bStartCol; j <= info.bEndCol; j++)
 		{
 			for (size_t k = 0; k < info.aColNum; k++)
-			{
+			{		
 				resultMatrix[i][j] += inputMatrixA[i][info.aStartCol + k] * inputMatrixB[info.bStartRow + k][j];
 			}
 		}
 	}
+#endif // ENABLE_SIMD
 }
