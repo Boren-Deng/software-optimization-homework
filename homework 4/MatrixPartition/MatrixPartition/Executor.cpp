@@ -1,7 +1,7 @@
 ﻿#include "Executor.h"
 #include "Logger.h"
 #include <emmintrin.h>
-
+#define ENABLE_SIMD
 using namespace std;
 
 Executor::Executor(const DataGenerator& dg)
@@ -227,7 +227,6 @@ void Executor::matrixMulti(const std::vector<std::vector<float>>& inputMatrixA,
                            const std::vector<std::vector<float>>& inputMatrixB,
                            std::vector<std::vector<float>>& resultMatrix, const PartitionInfo& info)
 {
-#define ENABLE_SIMD
 #ifdef ENABLE_SIMD
 	__m128 currentRow, currentCol;
 	__declspec(align(16)) float row_arr[4], col_arr[4],result_arr[4];
@@ -235,7 +234,7 @@ void Executor::matrixMulti(const std::vector<std::vector<float>>& inputMatrixA,
 	{
 		for (size_t j = info.bStartCol; j <= info.bEndCol; j++)
 		{
-			__m128 tempResult = _mm256_set1_pd(0.0);
+			__m128 tempResult = _mm_set_ps1(0.0f);
 			for (size_t k = 0; k < info.aColNum; k+=4)
 			{
 				row_arr[0] = inputMatrixA[i][info.aStartCol + k + 0],
