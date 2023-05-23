@@ -7,6 +7,7 @@ DataGenerator::DataGenerator()
 {
 	mt19937 engine(SEED);
 	uniform_real_distribution<float> distribution(-1000.0f, 1000.0f);
+
 	for (size_t i = 0; i < 512; i++)
 	{
 		for (size_t j=0;j<512;j++)
