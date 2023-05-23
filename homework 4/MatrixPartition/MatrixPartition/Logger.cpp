@@ -30,7 +30,7 @@ void Logger::operator()(logOption option, const string& item)
 
 void Logger::operator()(const std::string& item) const
 {
-	fstream fs(LOG_PATH, ios::app);
+	fstream fs(LOG_PATH, ios::app|ios::out);
 	fs << item << endl;
 	fs.close();
 }
