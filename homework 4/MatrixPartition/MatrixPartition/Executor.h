@@ -3,6 +3,7 @@
 #define EXECUTOR_H
 
 #include <vector>
+#include <cstddef>
 #include "DataGenerator.h"
 
 class Executor

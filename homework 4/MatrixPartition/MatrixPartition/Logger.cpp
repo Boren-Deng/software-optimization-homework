@@ -18,7 +18,7 @@ void Logger::operator()(logOption option, const string& item)
 	case Logger::end:
 	{
 		endTime = chrono::time_point_cast<chrono::milliseconds>(chrono::system_clock::now()).time_since_epoch().count();
-		fstream fs(LOG_PATH, ios::app);
+		fstream fs(LOG_PATH, ios::app|ios::out);
 		fs << item + " consumption:" << endTime - startTime << "ms\n";
 		fs.close();
 	}

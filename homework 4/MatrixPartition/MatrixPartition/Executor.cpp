@@ -98,7 +98,7 @@ void Executor::matrixPartitionScheme(size_t sideLen)
 	GetSystemInfo(&sysInfo);
 	cpuNum = sysInfo.dwNumberOfProcessors;
 #else
-	cpuNum = sysconf(_SC_NPROCS_ONLN);
+	cpuNum = get_nprocs();
 #endif
 	workThreads.reserve(cpuNum);
 #endif
@@ -127,7 +127,7 @@ void Executor::matrixPartitionScheme(size_t sideLen)
 		}
 	}
 #else
-	taskNum = min(cpuNum, partitionRow);
+	taskNum = min(cpuNum, static_cast<int>(partitionRow));
 	taskBalanceNum = partitionRow % taskNum;
 	for(int thd=0;thd<taskNum;thd++)
 	{
@@ -190,7 +190,7 @@ void Executor::matrixPartitionScheme(size_t sideLen)
 		}
 	}
 #else
-	taskNum = min(cpuNum, partitionRow);
+	taskNum = min(cpuNum, static_cast<int>(partitionRow));
 	taskBalanceNum = partitionRow % taskNum;
 	for (int thd = 0; thd < taskNum; thd++)
 	{
@@ -253,7 +253,7 @@ void Executor::matrixPartitionScheme(size_t sideLen)
 		}
 	}
 #else
-	taskNum = min(cpuNum, partitionRow);
+	taskNum = min(cpuNum, static_cast<int>(partitionRow));
 	taskBalanceNum = partitionRow % taskNum;
 	for (int thd = 0; thd < taskNum; thd++)
 	{
@@ -316,7 +316,7 @@ void Executor::matrixPartitionScheme(size_t sideLen)
 		}
 	}
 #else
-	taskNum = min(cpuNum, partitionRow);
+	taskNum = min(cpuNum, static_cast<int>(partitionRow));
 	taskBalanceNum = partitionRow % taskNum;
 	for (int thd = 0; thd < taskNum; thd++)
 	{
