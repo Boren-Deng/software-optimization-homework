@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
-project(MatrixPartition)
+project(MatrixMultiplication)
 
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG -std=c++11 -pthread -msse2 -mavx -mavx2")
 set(CMAKE_BUILD_TYPE "Release")
 
 aux_source_directory(. CUR_DIR_SRCS)
@@ -20,7 +20,7 @@ ELSE()
     message(STATUS "building for: release")
 ENDIF()
 
-add_executable(MatrixPartition ${CUR_DIR_SRCS})
+add_executable(Matrix_mul ${CUR_DIR_SRCS})
 
-target_include_directories(MatrixPartition PRIVATE
+target_include_directories(Matrix_mul PRIVATE
         ${PROJECT_SOURCE_DIR})
